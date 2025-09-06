@@ -88,7 +88,7 @@ const StatisticsPanel: React.FC = () => {
               <ExclamationCircleOutlined style={{ color: '#fa8c16' }} />
               <Text strong>薄弱环节</Text>
               {worstCharacters.length > 0 && (
-                <Tag color="orange" size="small">{worstCharacters.length}</Tag>
+                <Tag color="orange">{worstCharacters.length}</Tag>
               )}
             </div>
           }
@@ -186,7 +186,7 @@ const StatisticsPanel: React.FC = () => {
               <ClockCircleOutlined style={{ color: '#1890ff' }} />
               <Text strong>最近错误</Text>
               {recentErrors.length > 0 && (
-                <Tag color="blue" size="small">{recentErrors.length}</Tag>
+                <Tag color="blue">{recentErrors.length}</Tag>
               )}
             </div>
           }
@@ -196,7 +196,7 @@ const StatisticsPanel: React.FC = () => {
             <List
               size="small"
               dataSource={recentErrors}
-              renderItem={(error, index) => (
+              renderItem={(error) => (
                 <List.Item>
                   <div style={{ width: '100%' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
