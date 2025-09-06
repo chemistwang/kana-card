@@ -97,6 +97,56 @@ export const kanaData: KanaRow[] = [
       { hiragana: 'ん', katakana: 'ン', romaji: 'n', pronunciation: 'n' },
     ],
   },
+  {
+    rowName: 'が行',
+    characters: [
+      { hiragana: 'が', katakana: 'ガ', romaji: 'ga', pronunciation: 'ga' },
+      { hiragana: 'ぎ', katakana: 'ギ', romaji: 'gi', pronunciation: 'gi' },
+      { hiragana: 'ぐ', katakana: 'グ', romaji: 'gu', pronunciation: 'gu' },
+      { hiragana: 'げ', katakana: 'ゲ', romaji: 'ge', pronunciation: 'ge' },
+      { hiragana: 'ご', katakana: 'ゴ', romaji: 'go', pronunciation: 'go' },
+    ],
+  },
+  {
+    rowName: 'ざ行',
+    characters: [
+      { hiragana: 'ざ', katakana: 'ザ', romaji: 'za', pronunciation: 'za' },
+      { hiragana: 'じ', katakana: 'ジ', romaji: 'ji', pronunciation: 'ji' },
+      { hiragana: 'ず', katakana: 'ズ', romaji: 'zu', pronunciation: 'zu' },
+      { hiragana: 'ぜ', katakana: 'ゼ', romaji: 'ze', pronunciation: 'ze' },
+      { hiragana: 'ぞ', katakana: 'ゾ', romaji: 'zo', pronunciation: 'zo' },
+    ],
+  },
+  {
+    rowName: 'だ行',
+    characters: [
+      { hiragana: 'だ', katakana: 'ダ', romaji: 'da', pronunciation: 'da' },
+      { hiragana: 'ぢ', katakana: 'ヂ', romaji: 'ji', pronunciation: 'ji' },
+      { hiragana: 'づ', katakana: 'ヅ', romaji: 'zu', pronunciation: 'zu' },
+      { hiragana: 'で', katakana: 'デ', romaji: 'de', pronunciation: 'de' },
+      { hiragana: 'ど', katakana: 'ド', romaji: 'do', pronunciation: 'do' },
+    ],
+  },
+  {
+    rowName: 'ば行',
+    characters: [
+      { hiragana: 'ば', katakana: 'バ', romaji: 'ba', pronunciation: 'ba' },
+      { hiragana: 'び', katakana: 'ビ', romaji: 'bi', pronunciation: 'bi' },
+      { hiragana: 'ぶ', katakana: 'ブ', romaji: 'bu', pronunciation: 'bu' },
+      { hiragana: 'べ', katakana: 'ベ', romaji: 'be', pronunciation: 'be' },
+      { hiragana: 'ぼ', katakana: 'ボ', romaji: 'bo', pronunciation: 'bo' },
+    ],
+  },
+  {
+    rowName: 'ぱ行',
+    characters: [
+      { hiragana: 'ぱ', katakana: 'パ', romaji: 'pa', pronunciation: 'pa' },
+      { hiragana: 'ぴ', katakana: 'ピ', romaji: 'pi', pronunciation: 'pi' },
+      { hiragana: 'ぷ', katakana: 'プ', romaji: 'pu', pronunciation: 'pu' },
+      { hiragana: 'ぺ', katakana: 'ペ', romaji: 'pe', pronunciation: 'pe' },
+      { hiragana: 'ぽ', katakana: 'ポ', romaji: 'po', pronunciation: 'po' },
+    ],
+  },
 ];
 
 // 获取所有假名字符的平坦数组
