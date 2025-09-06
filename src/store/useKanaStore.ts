@@ -113,6 +113,7 @@ const generateQuestion = (
     mode,
     displayText,
     correctAnswers,
+    startTime: Date.now(),
   };
 };
 
@@ -156,6 +157,8 @@ export const useKanaStore = create<KanaStore>()(
           answer => answer.toLowerCase() === userAnswer.toLowerCase().trim()
         );
         
+        const responseTime = Date.now() - currentQuestion.startTime;
+        
         const result: AnswerResult = {
           questionId: currentQuestion.id,
           userAnswer,
@@ -163,6 +166,7 @@ export const useKanaStore = create<KanaStore>()(
           isCorrect,
           timestamp: Date.now(),
           character: currentQuestion.character,
+          responseTime,
         };
         
         // 更新统计信息
@@ -175,6 +179,10 @@ export const useKanaStore = create<KanaStore>()(
             correct: 0,
             accuracy: 0,
             lastAttempt: 0,
+            averageResponseTime: 0,
+            fastestResponseTime: 0,
+            slowestResponseTime: 0,
+            totalResponseTime: 0,
           };
         }
         
@@ -186,12 +194,29 @@ export const useKanaStore = create<KanaStore>()(
           newCharacterStats[characterKey].correct / newCharacterStats[characterKey].attempts;
         newCharacterStats[characterKey].lastAttempt = Date.now();
         
+        // 更新响应时间统计
+        const charStats = newCharacterStats[characterKey];
+        charStats.totalResponseTime += responseTime;
+        charStats.averageResponseTime = charStats.totalResponseTime / charStats.attempts;
+        
+        if (charStats.fastestResponseTime === 0 || responseTime < charStats.fastestResponseTime) {
+          charStats.fastestResponseTime = responseTime;
+        }
+        if (responseTime > charStats.slowestResponseTime) {
+          charStats.slowestResponseTime = responseTime;
+        }
+        
+        // 计算全局平均响应时间
+        const totalResponseTime = statistics.averageResponseTime * statistics.totalQuestions + responseTime;
+        const newTotalQuestions = statistics.totalQuestions + 1;
+        const newAverageResponseTime = totalResponseTime / newTotalQuestions;
+        
         const newStatistics: Statistics = {
-          totalQuestions: statistics.totalQuestions + 1,
+          totalQuestions: newTotalQuestions,
           correctAnswers: statistics.correctAnswers + (isCorrect ? 1 : 0),
           incorrectAnswers: statistics.incorrectAnswers + (isCorrect ? 0 : 1),
-          accuracy: ((statistics.correctAnswers + (isCorrect ? 1 : 0)) / (statistics.totalQuestions + 1)) * 100,
-          averageResponseTime: statistics.averageResponseTime, // TODO: 实现响应时间计算
+          accuracy: ((statistics.correctAnswers + (isCorrect ? 1 : 0)) / newTotalQuestions) * 100,
+          averageResponseTime: newAverageResponseTime,
           characterStats: newCharacterStats,
         };
         
@@ -214,12 +239,19 @@ export const useKanaStore = create<KanaStore>()(
       // 重置统计
       resetStatistics: () => {
         set({
-          statistics: defaultStatistics,
+          statistics: { ...defaultStatistics }, // 确保是全新的对象
           answerHistory: [],
           sessionQuestions: 0,
           sessionCorrect: 0,
           sessionStartTime: Date.now(),
+          showAnswer: false, // 重置答案显示状态
+          currentQuestion: null, // 清除当前问题
         });
+        
+        // 重新生成新问题
+        setTimeout(() => {
+          get().generateNewQuestion();
+        }, 100);
       },
       
       // 显示答案状态

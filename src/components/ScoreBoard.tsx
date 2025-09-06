@@ -29,6 +29,15 @@ const ScoreBoard: React.FC = () => {
     return streak;
   };
 
+  // 格式化响应时间显示
+  const formatResponseTime = (timeMs: number) => {
+    if (timeMs < 1000) {
+      return `${Math.round(timeMs)}ms`;
+    } else {
+      return `${(timeMs / 1000).toFixed(1)}s`;
+    }
+  };
+
   return (
     <div>
       <Title level={4} style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -128,6 +137,21 @@ const ScoreBoard: React.FC = () => {
             />
           </Col>
         </Row>
+
+        {statistics.averageResponseTime > 0 && (
+          <Row gutter={16} style={{ marginTop: '16px' }}>
+            <Col span={24}>
+              <Statistic
+                title="平均响应时间"
+                value={formatResponseTime(statistics.averageResponseTime)}
+                valueStyle={{ 
+                  fontSize: '16px', 
+                  color: statistics.averageResponseTime < 2000 ? '#52c41a' : '#faad14' 
+                }}
+              />
+            </Col>
+          </Row>
+        )}
 
         <div style={{ marginTop: '16px' }}>
           <div style={{ marginBottom: '8px', display: 'flex', justifyContent: 'space-between' }}>

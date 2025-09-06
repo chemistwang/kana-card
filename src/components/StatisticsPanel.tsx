@@ -6,7 +6,8 @@ import {
   CheckCircleOutlined,
   ClockCircleOutlined,
   EyeOutlined,
-  EyeInvisibleOutlined
+  EyeInvisibleOutlined,
+  ThunderboltOutlined
 } from '@ant-design/icons';
 import { useKanaStore } from '../store/useKanaStore';
 import { kanaData } from '../data/kanaData';
@@ -61,9 +62,36 @@ const StatisticsPanel: React.FC = () => {
     return rowStats;
   };
 
+  // 获取所有字符的响应时间统计
+  const getAllCharacterResponseStats = () => {
+    const characterStats = Object.entries(statistics.characterStats)
+      .map(([char, stats]) => ({ char, ...stats }))
+      .filter(item => item.attempts > 0 && item.averageResponseTime > 0)
+      .sort((a, b) => a.averageResponseTime - b.averageResponseTime); // 按响应时间排序，快的在前
+    
+    return characterStats;
+  };
+
+  // 格式化响应时间显示
+  const formatResponseTime = (timeMs: number) => {
+    if (timeMs < 1000) {
+      return `${Math.round(timeMs)}ms`;
+    } else {
+      return `${(timeMs / 1000).toFixed(1)}s`;
+    }
+  };
+
+  // 根据响应时间获取颜色
+  const getResponseTimeColor = (timeMs: number) => {
+    if (timeMs < 1500) return '#52c41a'; // 绿色：快
+    if (timeMs < 3000) return '#faad14'; // 黄色：中等
+    return '#ff4d4f'; // 红色：慢
+  };
+
   const worstCharacters = getWorstPerformingCharacters();
   const recentErrors = getRecentErrors();
   const rowStats = getRowStatistics();
+  const allCharacterResponseStats = getAllCharacterResponseStats();
 
   const formatTime = (timestamp: number) => {
     const date = new Date(timestamp);
@@ -222,6 +250,83 @@ const StatisticsPanel: React.FC = () => {
           ) : (
             <Empty
               description="暂无错误记录，继续加油！"
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+            />
+          )}
+        </Panel>
+
+        {/* 响应时间分析 */}
+        <Panel 
+          header={
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <ThunderboltOutlined style={{ color: '#722ed1' }} />
+              <Text strong>响应时间分析</Text>
+              {statistics.averageResponseTime > 0 && (
+                <Tag color="purple">{formatResponseTime(statistics.averageResponseTime)}</Tag>
+              )}
+            </div>
+          }
+          key="response-time-analysis"
+        >
+          {statistics.totalQuestions > 0 ? (
+            <div>
+              {/* 总体响应时间 */}
+              <div style={{ marginBottom: '16px' }}>
+                <Text strong>总体平均响应时间: </Text>
+                <Text style={{ 
+                  color: getResponseTimeColor(statistics.averageResponseTime),
+                  fontWeight: 'bold' 
+                }}>
+                  {formatResponseTime(statistics.averageResponseTime)}
+                </Text>
+              </div>
+
+              {/* 所有字符的响应时间统计 */}
+              {allCharacterResponseStats.length > 0 && (
+                <div>
+                  <Text strong style={{ marginBottom: '12px', display: 'block' }}>
+                    字符响应时间统计 ({allCharacterResponseStats.length} 个字符)
+                  </Text>
+                  <List
+                    size="small"
+                    style={{ maxHeight: '300px', overflowY: 'auto' }}
+                    dataSource={allCharacterResponseStats}
+                    renderItem={(item) => (
+                      <List.Item>
+                        <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <span style={{ fontSize: '18px', fontWeight: 'bold', minWidth: '30px' }}>
+                            {item.char}
+                          </span>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                              <Text style={{ 
+                                fontSize: '13px', 
+                                color: getResponseTimeColor(item.averageResponseTime),
+                                fontWeight: 'bold',
+                                minWidth: '60px'
+                              }}>
+                                {formatResponseTime(item.averageResponseTime)}
+                              </Text>
+                              <Text style={{ fontSize: '11px', color: '#999' }}>
+                                {item.attempts} 次练习
+                              </Text>
+                              {item.fastestResponseTime > 0 && item.slowestResponseTime > 0 && (
+                                <Text style={{ fontSize: '11px', color: '#999' }}>
+                                  最快 {formatResponseTime(item.fastestResponseTime)} / 最慢 {formatResponseTime(item.slowestResponseTime)}
+                                </Text>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </List.Item>
+                    )}
+                  />
+                </div>
+              )}
+            </div>
+          ) : (
+            <Empty
+              description="还没有响应时间数据，开始练习吧！"
               image={Empty.PRESENTED_IMAGE_SIMPLE}
             />
           )}

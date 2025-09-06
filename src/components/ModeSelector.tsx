@@ -1,6 +1,6 @@
 import React from 'react';
-import { Typography, Segmented, Row, Col, Switch, Divider } from 'antd';
-import { FastForwardOutlined, ReloadOutlined } from '@ant-design/icons';
+import { Typography, Segmented, Row, Col, Switch, Divider, Modal, message } from 'antd';
+import { FastForwardOutlined, ReloadOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { useKanaStore } from '../store/useKanaStore';
 import { PracticeMode, QuestionType } from '../types/kana';
 
@@ -8,6 +8,38 @@ const { Title, Text } = Typography;
 
 const ModeSelector: React.FC = () => {
   const { settings, updateSettings, resetStatistics } = useKanaStore();
+
+  const handleResetStatistics = () => {
+    Modal.confirm({
+      title: '确认重置统计',
+      icon: <ExclamationCircleOutlined />,
+      content: (
+        <div>
+          <p>您确定要重置所有学习统计数据吗？</p>
+          <p style={{ color: '#ff4d4f', fontSize: '14px' }}>
+            此操作将清除：
+          </p>
+          <ul style={{ fontSize: '14px', color: '#666', marginTop: '8px' }}>
+            <li>所有答题历史记录</li>
+            <li>每个字符的统计数据</li>
+            <li>响应时间记录</li>
+            <li>正确率统计</li>
+            <li>当前会话数据</li>
+          </ul>
+          <p style={{ color: '#ff4d4f', fontSize: '14px', marginTop: '12px' }}>
+            <strong>此操作不可恢复！</strong>
+          </p>
+        </div>
+      ),
+      okText: '确认重置',
+      cancelText: '取消',
+      okType: 'danger',
+      onOk() {
+        resetStatistics();
+        message.success('统计数据已重置');
+      },
+    });
+  };
 
   const practiceModeOptions = [
     { label: '平假名', value: 'hiragana' as PracticeMode },
@@ -82,7 +114,7 @@ const ModeSelector: React.FC = () => {
               cursor: 'pointer',
               color: '#ff4d4f'
             }}
-            onClick={resetStatistics}
+            onClick={handleResetStatistics}
           >
             <ReloadOutlined />
             <Text style={{ fontSize: '14px', color: '#ff4d4f' }}>重置统计</Text>

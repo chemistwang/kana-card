@@ -21,6 +21,7 @@ export interface Question {
   mode: PracticeMode;
   displayText: string;
   correctAnswers: string[];
+  startTime: number;
 }
 
 export interface AnswerResult {
@@ -30,6 +31,7 @@ export interface AnswerResult {
   isCorrect: boolean;
   timestamp: number;
   character: KanaCharacter;
+  responseTime: number; // 响应时间（毫秒）
 }
 
 export interface Statistics {
@@ -43,6 +45,10 @@ export interface Statistics {
     correct: number;
     accuracy: number;
     lastAttempt: number;
+    averageResponseTime: number; // 平均响应时间（毫秒）
+    fastestResponseTime: number; // 最快响应时间（毫秒）
+    slowestResponseTime: number; // 最慢响应时间（毫秒）
+    totalResponseTime: number;   // 总响应时间（毫秒）
   }>;
 }
 
