@@ -170,7 +170,20 @@ export const useKanaStore = create<KanaStore>()(
         };
         
         // 更新统计信息
-        const characterKey = currentQuestion.character.hiragana;
+        // 根据实际显示的字符类型生成统计键，区分平假名和片假名
+        const { character, displayText } = currentQuestion;
+        let characterKey: string;
+        
+        if (displayText === character.hiragana) {
+          // 练习的是平假名
+          characterKey = character.hiragana;
+        } else if (displayText === character.katakana) {
+          // 练习的是片假名
+          characterKey = character.katakana;
+        } else {
+          // 混合模式或其他情况，根据显示文本判断
+          characterKey = displayText;
+        }
         const newCharacterStats = { ...statistics.characterStats };
         
         if (!newCharacterStats[characterKey]) {

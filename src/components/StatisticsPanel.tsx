@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { Typography, Collapse, Tag, Progress, List, Button, Empty } from 'antd';
+import React from 'react';
+import { Typography, Collapse, Tag, Progress, List, Empty } from 'antd';
 import { 
   BarChartOutlined, 
   ExclamationCircleOutlined, 
   CheckCircleOutlined,
   ClockCircleOutlined,
-  EyeOutlined,
-  EyeInvisibleOutlined,
   ThunderboltOutlined
 } from '@ant-design/icons';
 import { useKanaStore } from '../store/useKanaStore';
@@ -17,7 +15,6 @@ const { Panel } = Collapse;
 
 const StatisticsPanel: React.FC = () => {
   const { statistics, answerHistory } = useKanaStore();
-  const [showDetails, setShowDetails] = useState(false);
 
   // 获取错误最多的字符
   const getWorstPerformingCharacters = () => {
@@ -333,28 +330,6 @@ const StatisticsPanel: React.FC = () => {
         </Panel>
       </Collapse>
 
-      {/* 查看更多选项 */}
-      <div style={{ textAlign: 'center', marginTop: '16px' }}>
-        <Button
-          type="link"
-          size="small"
-          icon={showDetails ? <EyeInvisibleOutlined /> : <EyeOutlined />}
-          onClick={() => setShowDetails(!showDetails)}
-        >
-          {showDetails ? '收起详情' : '查看更多'}
-        </Button>
-      </div>
-
-      {showDetails && (
-        <div style={{ marginTop: '16px', padding: '12px', background: '#fafafa', borderRadius: '6px' }}>
-          <Text style={{ fontSize: '12px', color: '#666' }}>
-            <div>📊 总体准确率: {Math.round(statistics.accuracy)}%</div>
-            <div>📝 累计答题: {statistics.totalQuestions} 次</div>
-            <div>✅ 正确次数: {statistics.correctAnswers} 次</div>
-            <div>❌ 错误次数: {statistics.incorrectAnswers} 次</div>
-          </Text>
-        </div>
-      )}
     </div>
   );
 };
