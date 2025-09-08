@@ -147,6 +147,105 @@ export const kanaData: KanaRow[] = [
       { hiragana: 'ぽ', katakana: 'ポ', romaji: 'po', pronunciation: 'po' },
     ],
   },
+  // 拗音 (Yōon) - 基本拗音
+  {
+    rowName: 'きゃ行',
+    characters: [
+      { hiragana: 'きゃ', katakana: 'キャ', romaji: 'kya', pronunciation: 'kya' },
+      { hiragana: 'きゅ', katakana: 'キュ', romaji: 'kyu', pronunciation: 'kyu' },
+      { hiragana: 'きょ', katakana: 'キョ', romaji: 'kyo', pronunciation: 'kyo' },
+    ],
+  },
+  {
+    rowName: 'しゃ行',
+    characters: [
+      { hiragana: 'しゃ', katakana: 'シャ', romaji: 'sha', pronunciation: 'sha' },
+      { hiragana: 'しゅ', katakana: 'シュ', romaji: 'shu', pronunciation: 'shu' },
+      { hiragana: 'しょ', katakana: 'ショ', romaji: 'sho', pronunciation: 'sho' },
+    ],
+  },
+  {
+    rowName: 'ちゃ行',
+    characters: [
+      { hiragana: 'ちゃ', katakana: 'チャ', romaji: 'cha', pronunciation: 'cha' },
+      { hiragana: 'ちゅ', katakana: 'チュ', romaji: 'chu', pronunciation: 'chu' },
+      { hiragana: 'ちょ', katakana: 'チョ', romaji: 'cho', pronunciation: 'cho' },
+    ],
+  },
+  {
+    rowName: 'にゃ行',
+    characters: [
+      { hiragana: 'にゃ', katakana: 'ニャ', romaji: 'nya', pronunciation: 'nya' },
+      { hiragana: 'にゅ', katakana: 'ニュ', romaji: 'nyu', pronunciation: 'nyu' },
+      { hiragana: 'にょ', katakana: 'ニョ', romaji: 'nyo', pronunciation: 'nyo' },
+    ],
+  },
+  {
+    rowName: 'ひゃ行',
+    characters: [
+      { hiragana: 'ひゃ', katakana: 'ヒャ', romaji: 'hya', pronunciation: 'hya' },
+      { hiragana: 'ひゅ', katakana: 'ヒュ', romaji: 'hyu', pronunciation: 'hyu' },
+      { hiragana: 'ひょ', katakana: 'ヒョ', romaji: 'hyo', pronunciation: 'hyo' },
+    ],
+  },
+  {
+    rowName: 'みゃ行',
+    characters: [
+      { hiragana: 'みゃ', katakana: 'ミャ', romaji: 'mya', pronunciation: 'mya' },
+      { hiragana: 'みゅ', katakana: 'ミュ', romaji: 'myu', pronunciation: 'myu' },
+      { hiragana: 'みょ', katakana: 'ミョ', romaji: 'myo', pronunciation: 'myo' },
+    ],
+  },
+  {
+    rowName: 'りゃ行',
+    characters: [
+      { hiragana: 'りゃ', katakana: 'リャ', romaji: 'rya', pronunciation: 'rya' },
+      { hiragana: 'りゅ', katakana: 'リュ', romaji: 'ryu', pronunciation: 'ryu' },
+      { hiragana: 'りょ', katakana: 'リョ', romaji: 'ryo', pronunciation: 'ryo' },
+    ],
+  },
+  // 浊音拗音 (Voiced Yōon)
+  {
+    rowName: 'ぎゃ行',
+    characters: [
+      { hiragana: 'ぎゃ', katakana: 'ギャ', romaji: 'gya', pronunciation: 'gya' },
+      { hiragana: 'ぎゅ', katakana: 'ギュ', romaji: 'gyu', pronunciation: 'gyu' },
+      { hiragana: 'ぎょ', katakana: 'ギョ', romaji: 'gyo', pronunciation: 'gyo' },
+    ],
+  },
+  {
+    rowName: 'じゃ行',
+    characters: [
+      { hiragana: 'じゃ', katakana: 'ジャ', romaji: 'ja', pronunciation: 'ja' },
+      { hiragana: 'じゅ', katakana: 'ジュ', romaji: 'ju', pronunciation: 'ju' },
+      { hiragana: 'じょ', katakana: 'ジョ', romaji: 'jo', pronunciation: 'jo' },
+    ],
+  },
+  {
+    rowName: 'ぢゃ行',
+    characters: [
+      { hiragana: 'ぢゃ', katakana: 'ヂャ', romaji: 'ja', pronunciation: 'ja' },
+      { hiragana: 'ぢゅ', katakana: 'ヂュ', romaji: 'ju', pronunciation: 'ju' },
+      { hiragana: 'ぢょ', katakana: 'ヂョ', romaji: 'jo', pronunciation: 'jo' },
+    ],
+  },
+  {
+    rowName: 'びゃ行',
+    characters: [
+      { hiragana: 'びゃ', katakana: 'ビャ', romaji: 'bya', pronunciation: 'bya' },
+      { hiragana: 'びゅ', katakana: 'ビュ', romaji: 'byu', pronunciation: 'byu' },
+      { hiragana: 'びょ', katakana: 'ビョ', romaji: 'byo', pronunciation: 'byo' },
+    ],
+  },
+  // 半浊音拗音 (Semi-voiced Yōon)
+  {
+    rowName: 'ぴゃ行',
+    characters: [
+      { hiragana: 'ぴゃ', katakana: 'ピャ', romaji: 'pya', pronunciation: 'pya' },
+      { hiragana: 'ぴゅ', katakana: 'ピュ', romaji: 'pyu', pronunciation: 'pyu' },
+      { hiragana: 'ぴょ', katakana: 'ピョ', romaji: 'pyo', pronunciation: 'pyo' },
+    ],
+  },
 ];
 
 // 获取所有假名字符的平坦数组
