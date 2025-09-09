@@ -1,16 +1,8 @@
-import React, { useState } from 'react';
-import { Modal, Tabs, Typography, Button } from 'antd';
-import { 
-  BarChartOutlined, 
-  ExclamationCircleOutlined, 
-  CheckCircleOutlined,
-  ThunderboltOutlined,
-  TableOutlined
-} from '@ant-design/icons';
-import WeaknessAnalysis from './WeaknessAnalysis';
-import ResponseTimeAnalysis from './ResponseTimeAnalysis';
-import LearningProgress from './LearningProgress';
-import CharacterDetailTable from './CharacterDetailTable';
+import React from 'react';
+import { Modal, Typography, Button } from 'antd';
+import { BarChartOutlined } from '@ant-design/icons';
+import SimplifiedStats from './SimplifiedStats';
+import KanaHeatmap from './KanaHeatmap';
 
 const { Title } = Typography;
 
@@ -20,78 +12,37 @@ interface AnalysisModalProps {
 }
 
 const AnalysisModal: React.FC<AnalysisModalProps> = ({ open, onClose }) => {
-  const [activeTab, setActiveTab] = useState('weakness');
-
-  const tabItems = [
-    {
-      key: 'weakness',
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <ExclamationCircleOutlined style={{ color: '#fa8c16' }} />
-          薄弱环节
-        </div>
-      ),
-      children: <WeaknessAnalysis />
-    },
-    {
-      key: 'response-time',
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <ThunderboltOutlined style={{ color: '#722ed1' }} />
-          响应时间分析
-        </div>
-      ),
-      children: <ResponseTimeAnalysis />
-    },
-    {
-      key: 'progress',
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <CheckCircleOutlined style={{ color: '#52c41a' }} />
-          学习进度
-        </div>
-      ),
-      children: <LearningProgress />
-    },
-    {
-      key: 'details',
-      label: (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <TableOutlined style={{ color: '#1890ff' }} />
-          字符详情
-        </div>
-      ),
-      children: <CharacterDetailTable />
-    }
-  ];
-
   return (
     <Modal
       title={
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <BarChartOutlined style={{ color: '#722ed1', fontSize: '20px' }} />
           <Title level={4} style={{ margin: 0 }}>
-            详细学习分析
+            学习分析
           </Title>
         </div>
       }
       open={open}
       onCancel={onClose}
-      width={1000}
+      width={1200}
       footer={[
         <Button key="close" onClick={onClose}>
           关闭
         </Button>
       ]}
-      bodyStyle={{ padding: '20px' }}
+      bodyStyle={{ 
+        padding: '20px',
+        maxHeight: '80vh',
+        overflowY: 'auto'
+      }}
     >
-      <Tabs
-        activeKey={activeTab}
-        onChange={setActiveTab}
-        items={tabItems}
-        size="large"
-        tabBarStyle={{ marginBottom: '24px' }}
-      />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        {/* 上半部分：简化统计 */}
+        <SimplifiedStats />
+        
+        {/* 下半部分：热力图 */}
+        <KanaHeatmap />
+      </div>
     </Modal>
   );
 };
